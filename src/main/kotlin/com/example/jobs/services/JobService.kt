@@ -16,6 +16,7 @@ interface JobService {
     fun deleteTaskFromJob(jobId: Long, subtaskId: Long): Job
     fun deleteJob(id: Long)
     fun findJob(type: Int): List<Job>
+    fun findSubTask(jobId: Long): List<Job>
     fun findJobById(@PathVariable id: Long): Optional<Job>
     fun updateJob(@PathVariable id: Long, @RequestBody job: Job): Job
 }

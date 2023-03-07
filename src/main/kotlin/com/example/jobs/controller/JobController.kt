@@ -45,6 +45,10 @@ class JobController(private val jobService: JobService) {
     @ResponseBody
     fun findJob(@PathVariable type: Int): List<Job> = jobService.findJob(type)
 
+    @GetMapping("/get/allTask/{id}")
+    @ResponseBody
+    fun findSubJobForJob(@PathVariable id: Long): List<Job> = jobService.findSubTask(id)
+
     @GetMapping("/get/{id}")
     @ResponseBody
     fun findJobById(@PathVariable id: Long) = jobService.findJobById(id)

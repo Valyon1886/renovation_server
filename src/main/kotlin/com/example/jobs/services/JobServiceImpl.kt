@@ -72,6 +72,11 @@ class JobServiceImpl(
         throw UnsupportedOperationException("not used")
     }
 
+    override fun findSubTask(jobId: Long): List<Job> {
+        val job = jobRepository.findById(jobId).orElseThrow() { JobNotFoundException(jobId) }
+        return job.subTasks.orEmpty()
+    }
+
     override fun deleteTaskFromJob(jobId: Long, subtaskId: Long): Job {
         val job = jobRepository.findById(jobId).orElseThrow() { JobNotFoundException(jobId) }
         val subtask = jobRepository.findById(subtaskId).orElseThrow() { JobNotFoundException(jobId) }
