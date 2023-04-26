@@ -39,6 +39,7 @@ class JobServiceImpl(
         val job = jobRepository.findById(jobId).orElseThrow() { JobNotFoundException(jobId) }
         subTask.type = job.type + 1
         subTask.materials?.forEach {material ->  materialRepository.save(material)}
+        subTask.employers?.forEach {employer ->  employerRepository.save(employer)}
         jobRepository.save(subTask)
         job.subTasks?.add(subTask)
         jobRepository.save(job)
