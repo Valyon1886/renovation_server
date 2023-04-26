@@ -13,8 +13,8 @@ data class Employer(
     @Column(nullable = true) var secondName: String,
     @Column(nullable = false) var lastName: String,
     @Column(nullable = false) var post: String,
-    @Column(nullable = false) var cost: Int, // Стоимость в час
-    @Column(nullable = false) var clock: Int, //Смена
+    @Column(nullable = false) var cost: Int,
+    @Column(nullable = false) var clock: Int,
     @Id @GeneratedValue val id: Long? = null
 ) {
     constructor() : this("", "", "", "", 0,0) {

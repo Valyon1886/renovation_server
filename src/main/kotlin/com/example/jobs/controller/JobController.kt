@@ -1,6 +1,7 @@
 package com.example.jobs.controller
 
 import com.example.jobs.models.Job
+import com.example.jobs.models.Material
 import com.example.jobs.repository.JobRepository
 import com.example.jobs.services.JobService
 import org.springframework.stereotype.Controller
@@ -15,6 +16,14 @@ class JobController(private val jobService: JobService) {
     @PostMapping("/add")
     @ResponseBody
     fun addJob(@RequestBody job: Job) = jobService.addJob(job)
+
+    @PostMapping("/add/task/{jobId}")
+    @ResponseBody
+    fun addSubTask(@RequestBody subTask: Job, @PathVariable jobId: Long) = jobService.addSubTask(subTask, jobId)
+
+    @DeleteMapping("/delete/task/{subTaskId}/{jobId}")
+    @ResponseBody
+    fun deleteSubTask(@PathVariable subTaskId: Long, @PathVariable jobId: Long) = jobService.deleteSubTask(subTaskId, jobId)
 
     @PostMapping("/{jobId}/addEmTo/{employerId}")
     @ResponseBody
@@ -40,10 +49,9 @@ class JobController(private val jobService: JobService) {
     @ResponseBody
     fun deleteSubtaskFromJob(@PathVariable jobId: Long, @PathVariable subtaskId: Long): Job = jobService.deleteTaskFromJob(jobId, subtaskId)
 
-
-    @GetMapping("/getAll/{type}")
+    @GetMapping("/getAll")
     @ResponseBody
-    fun findJob(@PathVariable type: Int): List<Job> = jobService.findJob(type)
+    fun findJob(): List<Job> = jobService.findJob()
 
     @GetMapping("/get/allTask/{id}")
     @ResponseBody
@@ -52,6 +60,10 @@ class JobController(private val jobService: JobService) {
     @GetMapping("/get/{id}")
     @ResponseBody
     fun findJobById(@PathVariable id: Long) = jobService.findJobById(id)
+
+//    @PutMapping("/update/{id}")
+//    @ResponseBody
+//    fun updateJob(@PathVariable id: Long, @RequestBody job: Map<String, Any>) = jobService.updateJob(id, job)
 
     @PutMapping("/update/{id}")
     @ResponseBody

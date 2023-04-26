@@ -9,9 +9,9 @@ import jakarta.persistence.Table
 @Entity
 @Table(name="material")
 data class Material(
-    @Column(nullable = false) var name: String,
-    @Column(nullable = false) var count: Int,
-    @Column(nullable = false) var cost: Int,
+    @Column(nullable = true) var name: String?,
+    @Column(nullable = true) var count: Int?,
+    @Column(nullable = true) var cost: Int?,
     @Id @GeneratedValue val id: Long? = null
 ) {
     constructor() : this("", 0, 0) {

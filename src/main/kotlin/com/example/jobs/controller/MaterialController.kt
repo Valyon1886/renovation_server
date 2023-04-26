@@ -15,6 +15,14 @@ class MaterialController(private val materialService: MaterialService) {
     @ResponseBody
     fun addMaterial(@RequestBody material: Material) = materialService.addMaterial(material)
 
+    @PostMapping("/add/toJob/{jobId}")
+    @ResponseBody
+    fun addMaterialToJob(@RequestBody material: Material, @PathVariable jobId: Long) = materialService.addMaterialToJob(material, jobId)
+
+    @DeleteMapping("/delete/fromJob/{materialId}/{jobId}")
+    @ResponseBody
+    fun deleteMaterialFromJob(@PathVariable materialId: Long, @PathVariable jobId: Long) = materialService.deleteMaterialFromJob(materialId, jobId)
+
     @GetMapping("/get")
     @ResponseBody
     fun findMaterial(): List<Material> = materialService.findMaterial()
@@ -23,9 +31,9 @@ class MaterialController(private val materialService: MaterialService) {
     @ResponseBody
     fun findMaterialById(@PathVariable id: Long) = materialService.findMaterialById(id)
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{materialId}")
     @ResponseBody
-    fun updateMaterial(@PathVariable id: Long, @RequestBody material: Material) = materialService.updateMaterial(id, material)
+    fun updateMaterial(@PathVariable materialId: Long, @RequestBody updateMaterial: Material) = materialService.updateMaterial(materialId, updateMaterial)
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
