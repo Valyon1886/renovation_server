@@ -42,10 +42,11 @@ class UserServiceImpl(
         return userRepository.findById(id).map{
             it.idToken = user.idToken
 //            it.password = user.password
-            it.image = user.image
+//            it.image = user.image
             it.firstName = user.firstName
             it.secondName = user.secondName
             it.lastName = user.lastName
+            it.imgSrc = user.imgSrc
             userRepository.save(it)
         }.orElseThrow { EntityNotFoundException("User not found with id $id") }
     }

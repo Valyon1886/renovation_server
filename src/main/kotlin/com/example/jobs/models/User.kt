@@ -7,10 +7,10 @@ import jakarta.persistence.*
 data class User(
     @Column(nullable = true) var idToken: String,
 //    @Column(nullable = true) var password: String,
-    @Column(nullable = true) var image: String,
     @Column(nullable = false) var firstName: String,
     @Column(nullable = true) var secondName: String,
     @Column(nullable = false) var lastName: String,
+    @Column(nullable = true) var imgSrc: String,
 
     //var completedTasks: List<Job>
     //val documents: Map<Date, String>
