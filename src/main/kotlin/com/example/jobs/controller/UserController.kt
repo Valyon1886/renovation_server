@@ -36,7 +36,7 @@ class UserController(private val userService: UserService) {
 
     @PutMapping("/update/{id}")
     @ResponseBody
-    fun updateUser(@PathVariable id: Long, @RequestBody user: User) = userService.updateUser(id, user)
+    fun updateUser(@PathVariable id: Long, @RequestBody userUpdate: User) = userService.updateUser(id, userUpdate)
 
     @DeleteMapping("/delete/{id}")
     @ResponseBody
@@ -45,6 +45,10 @@ class UserController(private val userService: UserService) {
     @PostMapping("/{userId}/choise/{jobId}")
     @ResponseBody
     fun choiseTask(@PathVariable userId: Long, @PathVariable jobId: Long): User = userService.choiseTask(userId, jobId)
+
+    @PostMapping("/{userId}/finish/{jobId}")
+    @ResponseBody
+    fun finishTask(@PathVariable userId: Long, @PathVariable jobId: Long): User = userService.finishTask(userId, jobId)
 
     @GetMapping("/get/allTask/{id}")
     @ResponseBody

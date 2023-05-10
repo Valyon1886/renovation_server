@@ -10,7 +10,8 @@ data class Job(
     @Column(nullable = false) var name: String?,
     @Column(nullable = true) var phone: String?,
     @Column(nullable = true) var address: String?,
-    @Column(nullable = true) var image: String?,
+    @Column(nullable = true) var images: MutableList<String>?,
+    @Column(nullable = true) var rating: Double?,
     @Column(nullable = true) var description: String?,
     @Column(nullable = true) var beginDate: String?,
     @Column(nullable = true) var endDate: String?,
@@ -25,8 +26,16 @@ data class Job(
     @ManyToMany
     @Column(nullable = true)
     var subTasks: MutableList<Job>?,
+    @ManyToMany
+    @Column(nullable = true)
+    var completedSubTasks: MutableList<Job>?,
     @Id @GeneratedValue val id: Long? = null
 ) {
-    constructor() : this("", "", "", "", "", "", "", 0, false, mutableListOf(), mutableListOf(), mutableListOf()) {
+    constructor() : this(
+        "", "", "",
+        mutableListOf(), 0.0, "",
+        "", "", 0,
+        false, mutableListOf(),
+        mutableListOf(), mutableListOf(), mutableListOf()) {
     }
 }

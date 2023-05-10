@@ -46,6 +46,15 @@ class JobServiceImpl(
         return subTask
     }
 
+    override fun finishSubTask(subTaskId: Long, jobId: Long): Job {
+        val job = jobRepository.findById(jobId).orElseThrow() { JobNotFoundException(jobId) }
+        val subTask = jobRepository.findById(subTaskId).orElseThrow() { JobNotFoundException(subTaskId) }
+        job.completedSubTasks?.add(subTask)
+        job.subTasks?.remove(subTask)
+        jobRepository.save(job)
+        return job
+    }
+
     override fun deleteSubTask(subTaskId: Long, jobId: Long) {
         val job = jobRepository.findById(jobId).orElseThrow() { JobNotFoundException(jobId) }
         val subTask = jobRepository.findById(subTaskId).orElseThrow() { JobNotFoundException(subTaskId) }
@@ -102,7 +111,7 @@ class JobServiceImpl(
         throw UnsupportedOperationException("not used")
     }
 
-    override fun findSubTask(jobId: Long): List<Job> {
+       override fun findSubTask(jobId: Long): List<Job> {
         val job = jobRepository.findById(jobId).orElseThrow() { JobNotFoundException(jobId) }
         return job.subTasks.orEmpty()
     }
@@ -141,7 +150,8 @@ class JobServiceImpl(
         jobUpdate.name?.let { job.name = it }
         jobUpdate.phone?.let { job.phone = it }
         jobUpdate.address?.let { job.address = it }
-        jobUpdate.image?.let { job.image = it }
+        jobUpdate.images?.let { job.images = it }
+        jobUpdate.rating?.let { job.rating = it }
         jobUpdate.description?.let { job.description = it }
         jobUpdate.beginDate?.let { job.beginDate = it }
         jobUpdate.endDate?.let { job.endDate = it }

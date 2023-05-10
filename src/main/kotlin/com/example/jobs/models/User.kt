@@ -5,24 +5,25 @@ import jakarta.persistence.*
 @Entity
 @Table(name="users")
 data class User(
-    @Column(nullable = true) var idToken: String,
+    @Column var idToken: String?,
 //    @Column(nullable = true) var password: String,
-    @Column(nullable = false) var firstName: String,
-    @Column(nullable = true) var secondName: String,
-    @Column(nullable = false) var lastName: String,
-    @Column(nullable = true) var imgSrc: String,
-
-    //var completedTasks: List<Job>
+    @Column var firstName: String?,
+    @Column var secondName: String?,
+    @Column var lastName: String?,
+    @Column var imgSrc: String?,
+    @OneToMany
+    @Column
+    var completedTasks: MutableList<Job>?,
     //val documents: Map<Date, String>
     @OneToMany
-    @Column(nullable = true)
+    @Column
     var jobs: MutableList<Job>?,
     @OneToMany
-    @Column(nullable = true)
+    @Column
     var employers: MutableList<Employer>?,
     @Id @GeneratedValue val id: Long? = null
 ) {
-    constructor() : this("", "", "", "", "", mutableListOf(), mutableListOf()) {
+    constructor() : this("", "", "", "", "", mutableListOf(), mutableListOf(), mutableListOf()) {
 
     }
 }

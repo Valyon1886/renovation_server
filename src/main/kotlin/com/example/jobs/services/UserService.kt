@@ -15,8 +15,9 @@ interface UserService {
     fun findUser(): List<User>
     fun findUserById(@PathVariable id: Long): Optional<User>
     fun findUserByIdToken(@PathVariable idToken: String): User?
-    fun updateUser(@PathVariable id: Long, @RequestBody user: User): User
+    fun updateUser(@PathVariable id: Long, @RequestBody userUpdate: User): User
     fun choiseTask(userId: Long, jobId: Long): User
+    fun finishTask(userId: Long, jobId: Long): User
     fun getUserTask(userId: Long): List<Job>
     fun getUserMaterial(jobId: Long): List<Material>
     fun deleteTask(userId: Long, jobId: Long): User

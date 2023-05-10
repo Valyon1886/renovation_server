@@ -9,6 +9,7 @@ import java.util.*
 interface JobService {
     fun addJob(job: Job): Job
     fun addSubTask(subTask: Job, jobId: Long): Job
+    fun finishSubTask(subTaskId: Long, jobId: Long): Job
     fun deleteSubTask(subTaskId: Long, jobId: Long)
     fun addEmployerToJob(jobId: Long, employerId: Long): Job
     fun deleteEmployerFromJob(jobId: Long, employerId: Long): Job

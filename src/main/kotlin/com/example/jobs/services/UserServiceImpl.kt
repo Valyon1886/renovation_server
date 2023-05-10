@@ -38,17 +38,14 @@ class UserServiceImpl(
         return userRepository.findByIdToken(idToken)
     }
 
-    override fun updateUser(id: Long, user: User): User {
-        return userRepository.findById(id).map{
-            it.idToken = user.idToken
-//            it.password = user.password
-//            it.image = user.image
-            it.firstName = user.firstName
-            it.secondName = user.secondName
-            it.lastName = user.lastName
-            it.imgSrc = user.imgSrc
-            userRepository.save(it)
-        }.orElseThrow { EntityNotFoundException("User not found with id $id") }
+    override fun updateUser(id: Long, userUpdate: User): User {
+        val user = userRepository.findById(id).orElseThrow() {JobNotFoundException(id)}
+        userUpdate.imgSrc?.let { user.imgSrc = it }
+        userUpdate.idToken?.let { user.idToken = it }
+        userUpdate.firstName?.let { user.firstName = it }
+        userUpdate.secondName?.let { user.secondName = it }
+        userUpdate.lastName?.let { user.lastName = it }
+        return userRepository.save(user)
     }
 
     override fun choiseTask(userId: Long, jobId: Long): User {
@@ -60,6 +57,14 @@ class UserServiceImpl(
         }
         job.assigned = true
         jobRepository.save(job)
+        return userRepository.save(user)
+    }
+
+    override fun finishTask(userId: Long, jobId: Long): User {
+        val user = userRepository.findById(userId).orElseThrow() { UserNotFoundException(userId) }
+        val job = jobRepository.findById(jobId).orElseThrow() { JobNotFoundException(jobId) }
+        user.jobs?.remove(job)
+        user.completedTasks?.add(job)
         return userRepository.save(user)
     }
 

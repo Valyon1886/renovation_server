@@ -21,6 +21,10 @@ class JobController(private val jobService: JobService) {
     @ResponseBody
     fun addSubTask(@RequestBody subTask: Job, @PathVariable jobId: Long) = jobService.addSubTask(subTask, jobId)
 
+    @PostMapping("/finish/task/{subTaskId}/{jobId}")
+    @ResponseBody
+    fun finishSubTask(@PathVariable subTaskId: Long, @PathVariable jobId: Long) = jobService.finishSubTask(subTaskId, jobId)
+
     @DeleteMapping("/delete/task/{subTaskId}/{jobId}")
     @ResponseBody
     fun deleteSubTask(@PathVariable subTaskId: Long, @PathVariable jobId: Long) = jobService.deleteSubTask(subTaskId, jobId)
