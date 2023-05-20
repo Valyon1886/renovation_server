@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*
 @Controller
 @RequestMapping("/user")
 class UserController(private val userService: UserService) {
-
     @GetMapping("/get/token/{idToken}")
     @ResponseBody
     fun checkIdTokenUser(@PathVariable idToken: String) = userService.checkIdTokenUser(idToken)
@@ -37,7 +36,7 @@ class UserController(private val userService: UserService) {
     @PutMapping("/update/{id}")
     @ResponseBody
     fun updateUser(@PathVariable id: Long, @RequestBody userUpdate: User) = userService.updateUser(id, userUpdate)
-
+    
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     fun deleteUser(@PathVariable id: Long) = userService.deleteUser(id)
